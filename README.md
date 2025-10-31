@@ -19,6 +19,7 @@ This repository contains notebook for analyzing ATLAS Open Data to rediscover th
 2. Open and run the analysis notebook:
 	- Open `HyyAnalysis_with_extensions.ipynb`
 	- Run all cells to reproduce the analysis
+    - The libraries necessary for the notebook are downloaded during the first run
 
 ## Results
 
@@ -26,3 +27,4 @@ This repository contains notebook for analyzing ATLAS Open Data to rediscover th
 - Di-photon invariant mass spectrum with Higgs peak
 - Signal and background fit results (Gaussian + polynomial)
 - Plots and tables demonstrating the effect of baseline and extended cuts
+- Plots with patameters of the fitted gaussian
