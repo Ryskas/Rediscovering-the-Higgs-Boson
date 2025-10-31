@@ -6,7 +6,7 @@ This repository contains notebook for analyzing ATLAS Open Data to rediscover th
 
 - `HyyAnalysis_with_extensions.ipynb`: Main analysis notebook with baseline and extended selections, plotting, and fit results.
 - `download_atlas_files.py`: Script to download ATLAS files to a local cache directory using atlasopenmagic. The `atlas_cache/` is the output directory for downloaded ATLAS data files.
-- `requirements_download.txt`: Python requirements for the download script.
+- `requirements.txt`: Python requirements for the download script.
 
 ## How to Run
 
