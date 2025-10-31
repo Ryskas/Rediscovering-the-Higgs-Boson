@@ -1,0 +1,3 @@
+atlasopenmagic
+requests
+urllib3
