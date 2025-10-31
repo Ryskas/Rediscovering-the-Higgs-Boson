@@ -1,7 +1,5 @@
 import os
-import sys
 import time
-import argparse
 from urllib.parse import urlparse
 import shutil
 
@@ -101,7 +99,6 @@ def normalize_url_for_requests(url):
         if first_segment.startswith('www.') or ('.' in first_segment and ' ' not in first_segment):
             u = 'https://' + u
 
-    # Ensure scheme is lowercase to avoid odd adapters issues
     parsed = urlparse(u)
     if parsed.scheme and parsed.scheme.lower() != parsed.scheme:
         u = u.replace(parsed.scheme + ':', parsed.scheme.lower() + ':', 1)
@@ -110,33 +107,30 @@ def normalize_url_for_requests(url):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Download ATLAS skim files to a local cache')
-    parser.add_argument('--skim', default='GamGam', help='Skim name to download (default: GamGam)')
-    parser.add_argument('--release', default='2025e-13tev-beta', help='atlasopenmagic release to use')
-    parser.add_argument('--protocol', default='https', help='Protocol for URLs (https)')
-    parser.add_argument('--cache-dir', default='atlas_cache', help='Local cache directory')
-    parser.add_argument('--limit', type=int, default=0, help='Limit number of files to download (0 = all)')
-    args = parser.parse_args()
+    skim = 'GamGam'
+    release = '2025e-13tev-beta'
+    protocol = 'https'
+    cache_dir = 'atlas_cache'
+    limit = 0
 
-    cache_dir = os.path.abspath(args.cache_dir)
+    cache_dir = os.path.abspath(cache_dir)
     os.makedirs(cache_dir, exist_ok=True)
 
-    print(f"Using atlasopenmagic release: {args.release}")
-    atom.set_release(args.release)
+    print(f"Using atlasopenmagic release: {release}")
+    atom.set_release(release)
 
-    print(f"Fetching file list for skim '{args.skim}' (protocol={args.protocol})...")
-    files_list = atom.get_urls('data', args.skim, protocol=args.protocol, cache=True)
+    print(f"Fetching file list for skim '{skim}' (protocol={protocol})...")
+    files_list = atom.get_urls('data', skim, protocol=protocol, cache=True)
 
     n_total = len(files_list)
-    if args.limit > 0:
-        files_list = files_list[:args.limit]
+    if limit > 0:
+        files_list = files_list[:limit]
     print(f"Found {n_total} files, will download {len(files_list)} files to {cache_dir}")
 
     session = make_session()
     for i, url in enumerate(files_list, start=1):
         try:
             norm = normalize_url_for_requests(url)
-            # If local file, copy into cache (file://...)
             if norm.startswith('file://'):
                 local_path = urlparse(norm).path
                 if not os.path.exists(local_path):

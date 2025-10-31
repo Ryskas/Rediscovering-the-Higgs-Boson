@@ -15,7 +15,7 @@ This repository contains notebook for analyzing ATLAS Open Data to rediscover th
 	pip install -r requirements_download.txt
 	python download_atlas_files.py
 	```
-    Downloads about 10 GB of files, so it takes few minutes.
+    Downloads about 10 GB of files, so it takes few minutes. If it does not finnish due to internet connection, run it again, it will continue from the file it crashed on.
 2. Open and run the analysis notebook:
 	- Open `HyyAnalysis_with_extensions.ipynb`
 	- Run all cells to reproduce the analysis
